@@ -1260,6 +1260,9 @@ void CalcBalancedCurrent(char mod) {
                 NoCurrent = 0;                                              // we have enough current to at least feed one EVSE
             } else {                                                        // not enough current to give to an ActiveEVSE
                 Balanced[n] = 0;                                            // this flags the EVSE that it is not supposed to charge
+                                                                            // and this also flags the EVSE that it is not supposed to charge:
+                if (Mode == MODE_SOLAR) BalancedError[n] |= NO_SUN;         // Solar mode: No Solar Power available
+                else BalancedError[n] |= LESS_6A;                           // Normal or Smart Mode: Not enough current available
             }
         }
 
@@ -1291,7 +1294,7 @@ void CalcBalancedCurrent(char mod) {
 
     _LOG_V("Checkpoint 5 Isetbalanced=%.1f A.\n", (float)IsetBalanced/10);
     if (LoadBl == 1) {
-        _LOG_D("Balance: ");
+        _LOG_D("Balance after  handout: ");
         for (n = 0; n < NR_EVSES; n++) {
             _LOG_D_NO_FUNC("EVSE%u:%s(%.1fA) ", n, getStateName(BalancedState[n]), (float)Balanced[n]/10);
         }
