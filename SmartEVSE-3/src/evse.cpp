@@ -5467,6 +5467,11 @@ void onWifiEvent(WiFiEvent_t event) {
                 //mg_timer_free(&mgr);
 #endif
                 _LOG_A("WiFi Disconnected. Reconnecting...\n");
+                //WiFi.setAutoReconnect(true);  //I know this is very counter-intuitive, you would expect this line in WiFiSetup but this is according to docs
+                                                //look at: https://github.com/alanswx/ESPAsyncWiFiManager/issues/92
+                                                //but somehow it doesnt work reliably, depending on how the disconnect happened...
+                WiFi.reconnect();               //this works better!
+
             }
             break;
         default: break;
