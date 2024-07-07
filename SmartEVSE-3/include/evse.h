@@ -524,6 +524,7 @@ const static char StrEnableC2[][12] = { "Not present", "Always Off", "Solar Off"
 enum Single_Phase_t { FALSE, GOING_TO_SWITCH, AFTER_SWITCH };
 extern Single_Phase_t Switching_To_Single_Phase;
 extern uint8_t Nr_Of_Phases_Charging;
+enum PrioStrat_t { NODENR, FIRSTCONN, LASTCONN };
 
 const struct {
     char LCD[10];
