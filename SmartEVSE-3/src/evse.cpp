@@ -1259,9 +1259,7 @@ void CalcBalancedCurrent(char mod) {
 
         RestOfIsetBalancedNotAllocatedYet = IsetBalanced;
 
-        PrioStrat = LASTCONN;//TODO test!!!
         uint8_t Priority[NR_EVSES];                                             // Priority[0] holds the nr of the EVSE with the highest prio
-
         for (n = 0; n < NR_EVSES; n++)
             Priority[n] = n;                                                    // Simple priority: Master = highest, then Node1, then Node2 etc.
 
@@ -1277,7 +1275,7 @@ void CalcBalancedCurrent(char mod) {
             BalancedConnected[5] = BalancedConnected[4] - 10;
             BalancedConnected[6] = BalancedConnected[0];
             BalancedConnected[7] = BalancedConnected[0];
-            //order: 2,3,0,6,7,1,5,4*/
+*/            //order: 2,3,0,6,7,1,5,4
             // shamelessly copied from wikipedia insertion_sort
             uint8_t x,j;
             for (uint8_t i = 1; i < NR_EVSES; i++) {                          // we don't need i=0 since we assume first element is already sorted
@@ -1687,6 +1685,9 @@ uint8_t setItemValue(uint8_t nav, uint16_t val) {
         case MENU_MAX_TEMP:
             maxTemp = val;
             break;
+        case MENU_PRIO:
+            PrioStrat = (PrioStrat_t) val;
+            break;
         case MENU_C2:
             EnableC2 = (EnableC2_t) val;
             break;
@@ -1853,6 +1854,8 @@ uint16_t getItemValue(uint8_t nav) {
     switch (nav) {
         case MENU_MAX_TEMP:
             return maxTemp;
+        case MENU_PRIO:
+            return PrioStrat;
         case MENU_C2:
             return EnableC2;
         case MENU_CONFIG:
