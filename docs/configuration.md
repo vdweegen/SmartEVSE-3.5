@@ -37,7 +37,7 @@ PWR SHARE  ; formerly known as LOADBALANCING.
   <Master>	Set the first SmartEVSE to Master. Make sure there is only one Master.
   <Node1-7>	And the other SmartEVSE's to Node 1-7.
 
-PRIORITY (only appears when PWR SHARE Enabled)
+PRIORITY (only appears when PWR SHARE set to <Master>)
         Determines the priority when multiple EVSEs are asking for power and there is
         not enough current to provide them all with MinCurrent.
   <NodeNr>      Priority is given to already charging EV's, with highest priority to Master,
