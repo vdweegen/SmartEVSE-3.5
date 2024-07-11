@@ -576,6 +576,7 @@ const struct {
     {"MAX TEMP","Maximum temperature for the EVSE module",            40, 75, MAX_TEMPERATURE},
     {"CAPACITY","Capacity Rate limit on sum of MAINS Current (A)",    0, 600, MAX_SUMMAINS},
     {"CAP STOP","Stop Capacity Rate limit charging after X minutes",    0, 60, MAX_SUMMAINSTIME},
+    {"PRIORITY", "Priority between nodes when sharing power",         NODENR, LASTCONN, NODENR},
 #if ENABLE_OCPP
     {"OCPP",    "Select OCPP mode",                                   0, 1, OCPP_MODE},
 #endif
