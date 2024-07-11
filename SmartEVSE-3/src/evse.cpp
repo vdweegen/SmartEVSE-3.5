@@ -1194,9 +1194,6 @@ void CalcBalancedCurrent(char mod) {
 
     // ############### make sure the calculated IsetBalanced doesnt exceed any boundaries #################
 
-    // Reset flag that keeps track of new MainsMeter measurements
-    phasesLastUpdateFlag = false;
-
     // guard MaxCircuit
     if (((LoadBl == 0 && EVMeter && Mode != MODE_NORMAL) || LoadBl == 1)    // Conditions in which MaxCircuit has to be considered
        && (IsetBalanced > (MaxCircuit * 10) - Baseload_EV))
@@ -1335,8 +1332,10 @@ void CalcBalancedCurrent(char mod) {
         }
 //        if (Balanced[0] == 0)
 //            Balanced[0] = MinCurrent *10;                                   // so we mimic the old behaviour, keep charging until NoCurrent = 2
-    } else { // no ActiveEVSEs so reset all timers
-        LOG_D("Checkpoint c: Resetting SolarStopTimer, MaxSumMainsTimer, IsetBalanced=%.1fA, ActiveEVSE=%i.\n", (float)IsetBalanced/10, ActiveEVSE);
+    } //ActiveEVSE && phasesLastUpdateFlag
+
+    if (!saveActiveEVSE) { // no ActiveEVSEs so reset all timers
+        _LOG_D("Checkpoint c: Resetting SolarStopTimer, MaxSumMainsTimer, IsetBalanced=%.1fA, saveActiveEVSE=%i.\n", (float)IsetBalanced/10, saveActiveEVSE);
         SolarStopTimer = 0;
         MaxSumMainsTimer = 0;
         NoCurrent = 0;
